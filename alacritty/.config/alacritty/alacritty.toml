@@ -1,0 +1,11 @@
+[window]
+opacity = 0.9
+
+padding.x = 12
+padding.y = 12
+
+decorations = "None"
+decorations_theme_variant = "Dark"
+
+blur = true
+
