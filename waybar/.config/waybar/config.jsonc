@@ -5,24 +5,21 @@
         "custom/icon",
         "hyprland/workspaces"
     ],
-    "modules-center": ["hyprland/window"],
+    "modules-center": ["clock"],
     "modules-right": [
-        "network",
-        "custom/divider",
-        "cpu",
-        "custom/divider",
-        "memory",
-        "custom/divider",
-        "clock"
+        "group/hardware",
+        "group/power"
     ],
     "custom/icon": {
-        "format": "{icon}",
-        "format-icons": ["󰣇"]
+        "format": "󰣇 ",
+        "tooltip": false
     },
     "custom/divider": {
-        "format": "|"
+        "format": "|",
+        "tooltip": false
     },
     "hyprland/workspaces": {
+        "format": " ",
         "persistent-workspaces": {
             "*": 9
         }
@@ -30,19 +27,54 @@
     "hyprland/window": {
         "max-length": 50
     },
+    "clock": {
+        "interval": 1,
+        "format": "{:%A, %d %B %Y   %R}",
+        "tooltip": false
+    },
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+            "network",
+            "custom/divider",
+            "cpu",
+            "custom/divider",
+            "memory"
+        ]
+    },
     "network": {
         "format": "{ifname}",
         "tooltip": false
     },
     "cpu": {
-        "format": "{usage}%",
+        "format": "  {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "{used:0.1f}G/{total:0.1f}G"
+        "format": "  {used:0.1f}G/{total:0.1f}G",
+        "tooltip": false
     },
-    "clock": {
-        "interval": 1,
-        "format": "{:%A, %d %B %Y - %R}"
+    "group/power": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/sign-out",
+            "custom/reboot",
+            "custom/power"
+        ]
+    },
+    "custom/sign-out": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch exit"
+    },
+    "custom/reboot": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "reboot"
+    },
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
+        "on-click": "shutdown now"
     }
 }

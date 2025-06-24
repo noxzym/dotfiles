@@ -1,81 +1,107 @@
 * {
     font-family: "MesloLGS Nerd Font";
     background: transparent;
-    color: white;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #custom-icon {
-    background: rgba(0, 0, 0, .6);
-    border-radius: 8px;
-    padding-left: 12px;
-    padding-right: 14px;
-    margin-right: 4px;
+	background: rgba(0, 0, 0, .6);
+	border-radius: 100px;
+	padding: 5px 2px 5px 10px;
+	margin-right: 4px;
+	font-size: 16px;
+	outline: none;
 }
+
 
 #workspaces {
     background: rgba(0, 0, 0, .6);
-    border-radius: 8px;
+    border-radius: 100px;
     font-size: 12px;
-    font-weight: 600;
 }
 
 #workspaces button {
-    border-radius: 6px;
-    margin: 4px;
     min-height: 0px;
     min-width: 0px;
-    padding: 1px 14px;
+    padding: 0px;
+    border: none;
 }
 
-#workspaces button:hover {
-    background: rgba(255, 255, 255, .2);
-    border: 1px solid rgba(255, 255, 255, .2);
-    box-shadow: none;
+#workspaces button:first-child {
+    margin-left: 12px;
+    margin-right: 1px
 }
 
-#workspaces button.active {
-    background: rgba(255, 255, 255, .2);
-    border: 1px solid rgba(255, 255, 255, .2);
+#workspaces button:not(:first-child):not(:last-child) {
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
-#window {
+#workspaces button:last-child {
+    margin-left: 1px;
+    margin-right: 12px;
+}
+
+#workspaces button > box > label {
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 250ms ease-in-out;
+}
+
+#workspaces button.active > box > label {
+    color: white;
+}
+
+.modules-center, #hardware, #power {
     background: rgba(0, 0, 0, .6);
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding: 1px 14px;
-}
-
-window#waybar.empty #window {
-    background-color: transparent;
-}
-
-#custom-divider,
-#network,
-#cpu,
-#memory,
-#clock {
-    background: rgba(0, 0, 0, .6);
-    font-size: 12px;
-    font-weight: 600;
-}
-
-#cpu,
-#memory {
+    border-radius: 100px;
     padding-left: 12px;
     padding-right: 12px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
-#network {
-    border-radius: 8px 0 0 8px;
-    padding-left: 12px;
-    padding-right: 6px;
+#hardware {
+    margin-right: 4px;;
 }
 
-#clock {
-    border-radius: 0 8px 8px 0;
-    padding-left: 6px;
-    padding-right: 12px;
+#hardware > widget:first-child > * {
+    margin-left: 6px;
+    margin-right: 6px
+}
+
+#hardware > widget:not(:first-child):not(:last-child) > * {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#hardware > widget:last-child > * {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#power {
+    font-size: 16px;
+}
+
+#power > widget:first-child > * {
+    margin-left: 6px;
+    margin-right: 6px
+}
+
+#power > widget:not(:first-child):not(:last-child) > * {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#power > widget:last-child > * {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#power > widget > label {
+    transition: color 250ms ease-in-out;
+}
+
+#power > widget > label:hover {
+    color: white;
 }

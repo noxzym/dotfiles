@@ -1,0 +1,26 @@
+# ======== Basic Notification Style ========
+background-color=#1e1e2e
+text-color=#cdd6f4
+
+border-size=0
+border-radius=8
+padding=12
+margin=10
+
+# ======== Font ========
+font=MesloLGS Nerd Font 10
+
+# ======== Position & Layout ========
+anchor=top-right
+width=600
+height=100
+max-history=10
+default-timeout=5000
+
+# ======== Icons & Images ========
+icons=true
+max-icon-size=32
+
+# ======== Behavior ========
+ignore-timeout=false
+layer=overlay
