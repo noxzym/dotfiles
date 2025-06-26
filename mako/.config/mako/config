@@ -12,7 +12,7 @@ font=MesloLGS Nerd Font 10
 
 # ======== Position & Layout ========
 anchor=top-right
-width=600
+width=350
 height=100
 max-history=10
 default-timeout=5000
