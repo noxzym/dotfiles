@@ -1,7 +1,7 @@
 #!/bin/bash
 
 choice=$(printf "Area\nWindow\nFullscreen" | tofi)
-
+sleep 0.3
 case "$choice" in
     "Area")
       grimblast --notify copy area
