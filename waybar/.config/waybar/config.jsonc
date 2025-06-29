@@ -1,29 +1,35 @@
 {
     "layer": "bottom",
-    "margin": "4px",
-    "modules-left": ["custom/icon", "hyprland/workspaces"],
-    "modules-center": ["clock"],
+    "margin-top": 4,
+    "margin-left": 4,
+    "margin-right": 4,
+    "spacing": 8,
+    "modules-left": ["custom/icon", "clock", "hyprland/workspaces"],
+    "modules-center": [],
     "modules-right": ["group/hardware", "group/power"],
     "custom/icon": {
         "format": "󰣇 ",
+        "on-click": "tofi-drun | xargs hyprctl dispatch exec --",
         "tooltip": false
     },
     "custom/divider": {
-        "format": "|",
+        "format": " | ",
         "tooltip": false
     },
     "hyprland/workspaces": {
         "format": " ",
         "persistent-workspaces": {
             "*": 9
-        }
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
     "hyprland/window": {
         "max-length": 50
     },
     "clock": {
         "interval": 1,
-        "format": "{:%A, %d %B %Y   %R}",
+        "format": "  {:%A, %d %B %Y - 󰥔  %r}",
         "tooltip": false
     },
     "group/hardware": {
@@ -35,11 +41,17 @@
             "custom/divider",
             "memory",
             "custom/divider",
+            "backlight",
+            "custom/divider",
             "wireplumber"
         ]
     },
     "network": {
         "format": "{ifname}",
+        "format-wifi": "󰖩  {essid}",
+        "format-ethernet": "󰈀  {ifname}",
+        "format-disconnected": "󱘖  No Network",
+        "on-click": "alacritty -e nmtui",
         "tooltip": false
     },
     "cpu": {
@@ -48,6 +60,10 @@
     },
     "memory": {
         "format": "  {used:0.1f}G/{total:0.1f}G",
+        "tooltip": false
+    },
+    "backlight": {
+        "format": "󰖨  {percent}%",
         "tooltip": false
     },
     "wireplumber": {
@@ -63,18 +79,18 @@
         "modules": ["custom/sign-out", "custom/reboot", "custom/power"]
     },
     "custom/sign-out": {
-        "format": "",
-        "tooltip": false,
-        "on-click": "hyprctl dispatch exit"
+        "format": " ",
+        "on-click": "hyprctl dispatch exit",
+        "tooltip": false
     },
     "custom/reboot": {
-        "format": "",
-        "tooltip": false,
-        "on-click": "reboot"
+        "format": "  ",
+        "on-click": "reboot",
+        "tooltip": false
     },
     "custom/power": {
-        "format": "󰐥",
-        "tooltip": false,
-        "on-click": "shutdown now"
+        "format": " 󰐥",
+        "on-click": "shutdown now",
+        "tooltip": false
     }
 }

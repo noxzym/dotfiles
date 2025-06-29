@@ -1,22 +1,23 @@
 * {
-    font-family: "MesloLGS Nerd Font";
     background: transparent;
     color: rgba(255, 255, 255, 0.7);
+    font-family: "MesloLGL Nerd Font";
+    font-size: 12px;
+    font-weight: 900;
 }
 
 #custom-icon {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 1);
     border-radius: 100px;
-    padding: 5px 2px 5px 10px;
-    margin-right: 4px;
-    font-size: 16px;
+    padding-left: 8px;
+    padding-right: 3px;
     outline: none;
 }
 
 #workspaces {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 1);
     border-radius: 100px;
-    font-size: 12px;
+    padding: 2px 12px 2px 12px;
 }
 
 #workspaces button {
@@ -25,21 +26,6 @@
     padding: 0px;
     border: none;
     box-shadow: none;
-}
-
-#workspaces button:first-child {
-    margin-left: 12px;
-    margin-right: 1px;
-}
-
-#workspaces button:not(:first-child):not(:last-child) {
-    margin-left: 1px;
-    margin-right: 1px;
-}
-
-#workspaces button:last-child {
-    margin-left: 1px;
-    margin-right: 12px;
 }
 
 #workspaces button > box > label {
@@ -51,52 +37,29 @@
     color: white;
 }
 
-.modules-center,
+#clock,
 #hardware,
 #power {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 1);
     border-radius: 100px;
-    padding-left: 12px;
-    padding-right: 12px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 0 12px;
 }
 
-#hardware {
-    margin-right: 4px;
+#workspaces button,
+#hardware > widget > *,
+#power > widget > * {
+    margin: 0 1px;
 }
 
-#hardware > widget:first-child > * {
-    margin-left: 6px;
-    margin-right: 6px;
-}
-
-#hardware > widget:not(:first-child):not(:last-child) > * {
-    margin-left: 6px;
-    margin-right: 6px;
-}
-
-#hardware > widget:last-child > * {
-    margin-left: 6px;
-    margin-right: 6px;
-}
-
-#power {
-    font-size: 16px;
-}
-
+#workspaces button:first-child,
+#hardware > widget:first-child > *,
 #power > widget:first-child > * {
     margin-left: 6px;
-    margin-right: 6px;
 }
 
-#power > widget:not(:first-child):not(:last-child) > * {
-    margin-left: 6px;
-    margin-right: 6px;
-}
-
+#workspaces button:last-child,
+#hardware > widget:last-child > *,
 #power > widget:last-child > * {
-    margin-left: 6px;
     margin-right: 6px;
 }
 
