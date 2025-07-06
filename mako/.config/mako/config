@@ -1,8 +1,6 @@
 # ======== Basic Notification Style ========
-background-color=#1e1e2e
+background-color=#1e1e2eAA
 text-color=#cdd6f4
-
-border-size=0
 border-radius=8
 padding=12
 margin=10
@@ -15,7 +13,7 @@ anchor=top-right
 width=350
 height=100
 max-history=10
-default-timeout=5000
+default-timeout=3000
 
 # ======== Icons & Images ========
 icons=true

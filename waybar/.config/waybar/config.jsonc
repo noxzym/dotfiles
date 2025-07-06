@@ -6,10 +6,10 @@
     "spacing": 8,
     "modules-left": ["custom/icon", "clock", "hyprland/workspaces"],
     "modules-center": [],
-    "modules-right": ["group/hardware", "group/power"],
+    "modules-right": ["group/hardware"],
     "custom/icon": {
         "format": "󰣇 ",
-        "on-click": "tofi-drun | xargs hyprctl dispatch exec --",
+        "on-click": "bash ~/.config/waybar/power.sh",
         "tooltip": false
     },
     "custom/divider": {
@@ -19,7 +19,7 @@
     "hyprland/workspaces": {
         "format": " ",
         "persistent-workspaces": {
-            "*": 9
+            "*": 10
         },
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1"
@@ -72,25 +72,6 @@
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "format-icons": ["", "", ""],
-        "tooltip": false
-    },
-    "group/power": {
-        "orientation": "horizontal",
-        "modules": ["custom/sign-out", "custom/reboot", "custom/power"]
-    },
-    "custom/sign-out": {
-        "format": " ",
-        "on-click": "hyprctl dispatch exit",
-        "tooltip": false
-    },
-    "custom/reboot": {
-        "format": "  ",
-        "on-click": "reboot",
-        "tooltip": false
-    },
-    "custom/power": {
-        "format": " 󰐥",
-        "on-click": "shutdown now",
         "tooltip": false
     }
 }

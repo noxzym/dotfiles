@@ -8,4 +8,5 @@ result-spacing=16
 num-results=10
 font=MesloLGS Nerd Font
 font-size=20
-background-color=#000A
+background-color=#1e1e2eAA
+text-color=#cdd6f4

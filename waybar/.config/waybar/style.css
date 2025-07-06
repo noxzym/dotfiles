@@ -1,13 +1,13 @@
 * {
     background: transparent;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(205, 214, 244, 1);
     font-family: "MesloLGL Nerd Font";
     font-size: 12px;
     font-weight: 900;
 }
 
 #custom-icon {
-    background: rgba(0, 0, 0, 1);
+    background: rgba(30, 30, 46, 0.9);
     border-radius: 100px;
     padding-left: 8px;
     padding-right: 3px;
@@ -15,7 +15,7 @@
 }
 
 #workspaces {
-    background: rgba(0, 0, 0, 1);
+    background: rgba(30, 30, 46, 0.9);
     border-radius: 100px;
     padding: 2px 12px 2px 12px;
 }
@@ -29,18 +29,18 @@
 }
 
 #workspaces button > box > label {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(205, 214, 244, 0.5);
     transition: color 250ms ease-in-out;
 }
 
 #workspaces button.active > box > label {
-    color: white;
+    color: rgba(205, 214, 244, 1);
 }
 
 #clock,
 #hardware,
 #power {
-    background: rgba(0, 0, 0, 1);
+    background: rgba(30, 30, 46, 0.9);
     border-radius: 100px;
     padding: 0 12px;
 }
@@ -68,5 +68,5 @@
 }
 
 #power > widget > label:hover {
-    color: white;
+    color: rgba(205, 214, 244, 1);
 }
