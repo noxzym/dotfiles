@@ -114,7 +114,9 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Load Hyprland
-[[ -z $DISPLAY && $(tty) = /dev/tty1 ]] && exec Hyprland
+if [ "$(tty)" = "/dev/tty1" ] && [ -n "DISPLAY" ]; then
+  exec Hyprland
+fi
 
 # Load NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

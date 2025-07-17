@@ -1,8 +1,8 @@
 {
     "layer": "bottom",
     "margin-top": 4,
-    "margin-left": 4,
-    "margin-right": 4,
+    "margin-left": 6,
+    "margin-right": 6,
     "spacing": 8,
     "modules-left": ["custom/icon", "clock", "hyprland/workspaces"],
     "modules-center": [],
@@ -43,7 +43,9 @@
             "custom/divider",
             "backlight",
             "custom/divider",
-            "wireplumber"
+            "wireplumber",
+	    "custom/divider",
+	    "battery"
         ]
     },
     "network": {
@@ -73,5 +75,16 @@
         "on-click-right": "pavucontrol",
         "format-icons": ["", "", ""],
         "tooltip": false
+    },
+    "battery": {
+        "bat": "BAT1",
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+	"tooltip": false
     }
 }

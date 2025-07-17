@@ -3,7 +3,5 @@ background = "#1e1e2e"
 foreground = "#cdd6f4"
 
 [window]
-blur = true
-opacity = 0.8
 padding.x = 12
 padding.y = 12
