@@ -1,0 +1,3 @@
+icon="󰣇"
+
+echo $icon $USER

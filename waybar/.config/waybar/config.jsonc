@@ -1,35 +1,43 @@
 {
     "layer": "bottom",
-    "margin-top": 4,
-    "margin-left": 6,
-    "margin-right": 6,
+    "margin": "4px 12px",
     "spacing": 8,
-    "modules-left": ["custom/icon", "clock", "hyprland/workspaces"],
-    "modules-center": [],
-    "modules-right": ["group/hardware"],
-    "custom/icon": {
-        "format": "󰣇 ",
-        "on-click": "bash ~/.config/waybar/power.sh",
+    "reload_style_on_change": true,
+    "modules-left": [
+        "custom/powermenu",
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "group/hardware"
+    ],
+    "custom/powermenu": {
+        "exec": "bash ~/.config/waybar/scripts/placeholder.sh",
+        "on-click": "~/.config/rofi/power.sh",
         "tooltip": false
     },
     "custom/divider": {
         "format": " | ",
-        "tooltip": false
+        "tooltip": false,
+        "on-scroll-up": ""
     },
     "hyprland/workspaces": {
-        "format": " ",
+        "format": "{icon}",
         "persistent-workspaces": {
             "*": 10
         },
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1"
-    },
-    "hyprland/window": {
-        "max-length": 50
+        "format-icons": {
+            "active": " ",
+            "default": " "
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1"
     },
     "clock": {
-        "interval": 1,
-        "format": "  {:%A, %d %B %Y - 󰥔  %r}",
+        "interval": 60,
+        "format": "{:%a, %d %b %Y - %R %p}",
         "tooltip": false
     },
     "group/hardware": {
@@ -37,54 +45,63 @@
         "modules": [
             "network",
             "custom/divider",
-            "cpu",
-            "custom/divider",
-            "memory",
-            "custom/divider",
             "backlight",
             "custom/divider",
+            "wireplumber#source",
+            "custom/divider",
             "wireplumber",
-	    "custom/divider",
-	    "battery"
+            "custom/divider",
+            "battery"
         ]
     },
     "network": {
         "format": "{ifname}",
         "format-wifi": "󰖩  {essid}",
-        "format-ethernet": "󰈀  {ifname}",
+        "format-ethernet": "󰛳  {ifname}",
         "format-disconnected": "󱘖  No Network",
+        "tooltip": false,
         "on-click": "alacritty -e nmtui",
-        "tooltip": false
-    },
-    "cpu": {
-        "format": "  {usage}%",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "  {used:0.1f}G/{total:0.1f}G",
-        "tooltip": false
+        "on-scroll-up": ""
     },
     "backlight": {
         "format": "󰖨  {percent}%",
+        "scroll-step": 5,
         "tooltip": false
+    },
+    "wireplumber#source": {
+        "node-type": "Audio/Source",
+        "format": "󰍬 {volume}%",
+        "format-muted": "󰍭 {volume}%",
+        "scroll-step": 5,
+        "tooltip": false,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "pavucontrol"
     },
     "wireplumber": {
         "format": "{icon} {volume}%",
         "format-muted": " {volume}%",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
+        "scroll-step": 5,
+        "tooltip": false,
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-click-right": "pavucontrol",
-        "format-icons": ["", "", ""],
-        "tooltip": false
+        "on-click-right": "pavucontrol"
     },
     "battery": {
-        "bat": "BAT1",
-        "interval": 30,
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
         "format": "{icon}  {capacity}%",
-        "format-icons": ["", "", "", "", ""],
-	"tooltip": false
+        "format-charging": "{icon} 󱐋 {capacity}%",
+        "interval": 10,
+        "tooltip": false,
+        "on-scroll-up": ""
     }
 }

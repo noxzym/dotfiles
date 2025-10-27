@@ -1,0 +1,103 @@
+configuration {
+	modi:                       "drun";
+    show-icons:                 true;
+    display-drun:               " Search...";
+	drun-display-format:        "{name}";
+}
+
+@import "./common.rasi"
+
+window {
+    border-radius:               20px;
+    border-color:                @selected;
+    background-color:            @background;
+}
+
+mainbox {
+    spacing:                     15px;
+    margin:                      40px;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
+}
+
+inputbar {
+    border-radius:               100%;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    children:                    [ "prompt", "textbox-prompt-colon", "entry" ];
+}
+
+prompt {
+    padding:                     15px;
+    border-radius:               100%;
+    background-color:            @selected;
+    text-color:                  @background;
+}
+
+textbox-prompt-colon {
+    expand:                      false;
+    str:                         "::";
+    padding:                     15px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+entry {
+    padding:                     15px 0px;
+    background-color:            inherit;
+    text-color:                  inherit;
+    cursor:                      text;
+    placeholder:                 "Applications";
+    placeholder-color:           inherit;
+}
+
+listview {
+    lines:                       5;
+    scrollbar:                   true;
+    spacing:                     12px;
+    background-color:            transparent;
+    text-color:                  @foreground;
+}
+
+scrollbar {
+    handle-width:                4px ;
+    handle-color:                @selected;
+    background-color:            @background-alt;
+}
+
+element {
+    spacing:                     10px;
+    border-color:                @selected;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @foreground;
+}
+
+element selected.normal {
+    border-radius:               100%;
+    background-color:            @background-alt;
+    text-color:                  @selected;
+}
+
+element-text {
+    background-color:            transparent;
+    cursor:                      inherit;
+    highlight:                   inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+element-icon {
+    padding:                     10px;
+    border-radius:               100%;
+    background-color:            @background-alt;
+    size:                        32px;
+    cursor:                      inherit;
+    text-color:                  inherit;
+}

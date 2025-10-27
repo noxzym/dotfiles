@@ -1,7 +1,10 @@
 [colors.primary]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+background = "#1d1d20"
+foreground = "#ffffff"
 
 [window]
 padding.x = 12
 padding.y = 12
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"

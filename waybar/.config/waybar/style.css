@@ -1,72 +1,31 @@
 * {
     background: transparent;
-    color: rgba(205, 214, 244, 1);
-    font-family: "MesloLGL Nerd Font";
+    color: #C5C4C6;
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 12px;
     font-weight: 900;
 }
 
-#custom-icon {
-    background: rgba(30, 30, 46, 0.9);
-    border-radius: 100px;
-    padding-left: 8px;
-    padding-right: 3px;
-    outline: none;
-}
-
-#workspaces {
-    background: rgba(30, 30, 46, 0.9);
-    border-radius: 100px;
-    padding: 2px 12px 2px 12px;
-}
-
-#workspaces button {
-    min-height: 0px;
-    min-width: 0px;
-    padding: 0px;
-    border: none;
-    box-shadow: none;
-}
-
-#workspaces button > box > label {
-    color: rgba(205, 214, 244, 0.5);
-    transition: color 250ms ease-in-out;
-}
-
-#workspaces button.active > box > label {
-    color: rgba(205, 214, 244, 1);
-}
-
-#clock,
+#custom-powermenu,
 #hardware,
+#clock,
 #power {
-    background: rgba(30, 30, 46, 0.9);
+    background: #1d1d20;
     border-radius: 100px;
     padding: 0 12px;
 }
 
-#workspaces button,
-#hardware > widget > *,
-#power > widget > * {
-    margin: 0 1px;
+#workspaces {
+    background: #1d1d20;
+    border-radius: 100px;
+    padding: 2px 8px 2px 8px;
 }
 
-#workspaces button:first-child,
-#hardware > widget:first-child > *,
-#power > widget:first-child > * {
-    margin-left: 6px;
-}
-
-#workspaces button:last-child,
-#hardware > widget:last-child > *,
-#power > widget:last-child > * {
-    margin-right: 6px;
-}
-
-#power > widget > label {
-    transition: color 250ms ease-in-out;
-}
-
-#power > widget > label:hover {
-    color: rgba(205, 214, 244, 1);
+#workspaces button {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0;
 }

@@ -1,0 +1,7 @@
+* {
+    background:               rgba(30, 33, 39, 1);
+    background-alt:           rgba(40, 43, 49, 1);
+    foreground:               rgba(255, 255, 255, 0.5);
+    selected:                 rgba(255, 255, 255, 1);
+    font:                       "JetBrainsMono Nerd Font Bold 10";
+}
