@@ -16,6 +16,9 @@ select="$(run)"
 sleep 0.3
 case $select in
     $area)
+        hyprpicker -r -z &
+        sleep 0.3
+        HYPRPICKER_PID=$!
         grimblast --notify copy area
         ;;
     $window)
