@@ -1,13 +1,14 @@
 configuration {
-	modi:                       "drun";
+    modi:                       "drun";
     show-icons:                 true;
-    display-drun:               " Search...";
-	drun-display-format:        "{name}";
+    display-drun:               " Search";
+    drun-display-format:        "{name}";
 }
 
 @import "./common.rasi"
 
 window {
+    border:                      1;
     border-radius:               20px;
     border-color:                @selected;
     background-color:            @background;
