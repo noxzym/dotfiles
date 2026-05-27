@@ -3,8 +3,15 @@ background = "#1d1d20"
 foreground = "#ffffff"
 
 [window]
+opacity = 1.0
 padding.x = 12
 padding.y = 12
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
+
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

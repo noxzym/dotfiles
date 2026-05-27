@@ -1,23 +1,24 @@
 # ======== Basic Notification Style ========
-background-color=#1e1e2eAA
-text-color=#cdd6f4
+background-color=#C5C4C6
+text-color=#1D1D20
+border-size=0
 border-radius=8
 padding=12
-margin=6
+margin=4
 
 # ======== Font ========
-font=MesloLGS Nerd Font 10
+font=JetBrainsMono Nerd Font 10
 
 # ======== Position & Layout ========
 anchor=top-right
-width=350
-height=100
-max-history=10
-default-timeout=3000
+width=340
+max-history=3
+default-timeout=2000
 
 # ======== Icons & Images ========
 icons=true
 max-icon-size=32
+icon-border-radius=8
 
 # ======== Behavior ========
 ignore-timeout=false

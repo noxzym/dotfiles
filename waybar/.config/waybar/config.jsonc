@@ -59,12 +59,13 @@
         ]
     },
     "network": {
-        "format": "{ifname}",
+        "interface": "enp8s0",
         "format-wifi": "󰖩  {essid}",
         "format-ethernet": "󰛳  {ifname}",
+        "format-linked": "󱘖  No Network",
         "format-disconnected": "󱘖  No Network",
         "tooltip": false,
-        "on-click": "nm-connection-editor",
+        "on-click": "adwaita-network",
         "on-scroll-up": ""
     },
     "backlight": {

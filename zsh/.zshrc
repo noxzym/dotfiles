@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Fast Node Manager
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --shell zsh)"
+fi
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -110,16 +115,7 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Load Hyprland
-if [ "$(tty)" = "/dev/tty1" ] && [ -n "DISPLAY" ]; then
-  exec Hyprland
-fi
-
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # bun completions
-[ -s "/home/noxzym/.bun/_bun" ] && source "/home/noxzym/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

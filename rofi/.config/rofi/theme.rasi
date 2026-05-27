@@ -1,7 +1,7 @@
 @import "./common.rasi"
 
 window {
-    border:                      1;
+    border:                      1px;
     border-radius:               20px;
     border-color:                @selected;
     background-color:            @background;

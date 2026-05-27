@@ -1,0 +1,350 @@
+// Niri configuration
+// KDL format: https://kdl.dev
+// Full config reference: https://niri-wm.github.io/niri/Configuration:-Introduction
+
+// =============================
+// INPUT
+// =============================
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+
+        // Mango parity: numlock disabled.
+        // numlock
+    }
+
+    touchpad {
+        tap
+        drag true
+        drag-lock
+        // Mango parity: natural scrolling disabled.
+        // natural-scroll
+    }
+
+    mouse {
+        // natural-scroll
+    }
+
+    trackpoint {
+        // natural-scroll
+    }
+
+    warp-mouse-to-focus
+    focus-follows-mouse
+}
+
+// =============================
+// OUTPUTS
+// =============================
+// Example laptop output. Keep disabled until exact monitor mode/scale is confirmed.
+/-output "eDP-1" {
+    mode "1920x1080@120.030"
+    scale 2
+    transform "normal"
+    position x=1280 y=0
+}
+
+// =============================
+// LAYOUT & APPEARANCE
+// =============================
+layout {
+    gaps 3
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 1
+        active-color "#44444455"
+        inactive-color "#44444455"
+    }
+
+    border {
+        off
+        width 1
+        active-color "#444444ff"
+        inactive-color "#444444ff"
+        urgent-color "#9b0000"
+    }
+
+    shadow {
+        // Mango parity: shadows disabled.
+        // on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts {}
+}
+
+// Ask clients to omit CSD if possible. Keep disabled unless CSD artifacts appear.
+prefer-no-csd
+
+// =============================
+// AUTOSTART
+// =============================
+spawn-at-startup "mako"
+spawn-sh-at-startup "~/.config/ags/app.tsx"
+spawn-at-startup "awww-daemon"
+spawn-at-startup "waypaper" "--restore"
+
+// =============================
+// SCREENSHOT
+// =============================
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// =============================
+// ANIMATIONS
+// =============================
+animations {
+    window-open {
+        duration-ms 300
+        curve "ease-out-expo"
+    }
+
+    window-close {
+        duration-ms 300
+        curve "ease-out-quad"
+    }
+
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+}
+
+// =============================
+// WINDOW RULES
+// =============================
+window-rule {
+    match app-id=r#"(?i)^(alacritty|org\.gnome\.Nautilus|nautilus|pavucontrol|waypaper)$"#
+    open-floating true
+    default-column-width { fixed 850; }
+    default-window-height { fixed 500; }
+}
+
+window-rule {
+    match app-id=r#"(?i)^adw-network$"#
+    open-floating true
+    default-column-width { fixed 542; }
+    default-window-height { fixed 640; }
+}
+
+window-rule {
+    match app-id=r#"(?i)^Waydroid$"#
+    open-fullscreen true
+}
+
+window-rule {
+    match is-floating=true
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// =============================
+// KEYBINDS: APPLICATIONS & SYSTEM
+// =============================
+binds {
+    Super+Q hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Super+R hotkey-overlay-title="Run an Application: rofi" { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/launcher.sh"; }
+    Super+E hotkey-overlay-title="Open Files: nautilus" { spawn "nautilus"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Ctrl+Alt+Delete { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/power.sh"; }
+    Super+C repeat=false { close-window; }
+
+    // =============================
+    // KEYBINDS: AUDIO, MEDIA & BRIGHTNESS
+    // =============================
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+
+    // =============================
+    // KEYBINDS: FOCUS & OVERVIEW
+    // =============================
+    Super+Tab { focus-column-right-or-first; }
+    Super+Shift+Tab { focus-column-left-or-last; }
+
+    Super+Left  { focus-column-left; }
+    Super+Down  { focus-window-down; }
+    Super+Up    { focus-window-up; }
+    Super+Right { focus-column-right; }
+    Super+H     { focus-column-left; }
+    Super+J     { focus-window-down; }
+    Super+K     { focus-window-up; }
+    Super+L     { focus-column-right; }
+
+    Super+Home { focus-column-first; }
+    Super+End  { focus-column-last; }
+
+    Super+Page_Down { focus-workspace-down; }
+    Super+Page_Up   { focus-workspace-up; }
+    Super+U         { focus-workspace-down; }
+    Super+I         { focus-workspace-up; }
+
+    Super+Alt+Left  { focus-monitor-left; }
+    Super+Alt+Down  { focus-monitor-down; }
+    Super+Alt+Up    { focus-monitor-up; }
+    Super+Alt+Right { focus-monitor-right; }
+    Super+Shift+H   { focus-monitor-left; }
+    Super+Shift+J   { focus-monitor-down; }
+    Super+Shift+K   { focus-monitor-up; }
+    Super+Shift+L   { focus-monitor-right; }
+
+    // =============================
+    // KEYBINDS: MOVE WINDOWS & COLUMNS
+    // =============================
+    Super+Shift+Left  { move-column-left; }
+    Super+Shift+Down  { move-window-down; }
+    Super+Shift+Up    { move-window-up; }
+    Super+Shift+Right { move-column-right; }
+
+    Super+Ctrl+Left  { move-column-left; }
+    Super+Ctrl+Down  { move-window-down; }
+    Super+Ctrl+Up    { move-window-up; }
+    Super+Ctrl+Right { move-column-right; }
+    Super+Ctrl+H     { move-column-left; }
+    Super+Ctrl+J     { move-window-down; }
+    Super+Ctrl+K     { move-window-up; }
+    Super+Ctrl+L     { move-column-right; }
+
+    Super+Ctrl+Home { move-column-to-first; }
+    Super+Ctrl+End  { move-column-to-last; }
+
+    Super+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Super+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    Super+Ctrl+U         { move-column-to-workspace-down; }
+    Super+Ctrl+I         { move-column-to-workspace-up; }
+
+    Super+Shift+Page_Down { move-workspace-down; }
+    Super+Shift+Page_Up   { move-workspace-up; }
+    Super+Shift+U         { move-workspace-down; }
+    Super+Shift+I         { move-workspace-up; }
+
+    Super+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Super+Shift+Ctrl+Down  { move-column-to-monitor-down; }
+    Super+Shift+Ctrl+Up    { move-column-to-monitor-up; }
+    Super+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Super+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Super+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Super+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Super+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    // =============================
+    // KEYBINDS: WORKSPACES
+    // =============================
+    Super+1 { focus-workspace 1; }
+    Super+2 { focus-workspace 2; }
+    Super+3 { focus-workspace 3; }
+    Super+4 { focus-workspace 4; }
+    Super+5 { focus-workspace 5; }
+    Super+6 { focus-workspace 6; }
+    Super+7 { focus-workspace 7; }
+    Super+8 { focus-workspace 8; }
+    Super+9 { focus-workspace 9; }
+
+    Super+Shift+1 { move-window-to-workspace 1; }
+    Super+Shift+2 { move-window-to-workspace 2; }
+    Super+Shift+3 { move-window-to-workspace 3; }
+    Super+Shift+4 { move-window-to-workspace 4; }
+    Super+Shift+5 { move-window-to-workspace 5; }
+    Super+Shift+6 { move-window-to-workspace 6; }
+    Super+Shift+7 { move-window-to-workspace 7; }
+    Super+Shift+8 { move-window-to-workspace 8; }
+    Super+Shift+9 { move-window-to-workspace 9; }
+
+    // =============================
+    // KEYBINDS: MOUSE & TOUCHPAD SCROLL
+    // =============================
+    Super+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Super+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Super+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Super+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Super+WheelScrollRight      { focus-column-right; }
+    Super+WheelScrollLeft       { focus-column-left; }
+    Super+Ctrl+WheelScrollRight { move-column-right; }
+    Super+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    Super+Shift+WheelScrollDown      { focus-column-right; }
+    Super+Shift+WheelScrollUp        { focus-column-left; }
+    Super+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Super+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    // =============================
+    // KEYBINDS: COLUMN & WINDOW LAYOUT
+    // =============================
+    Super+BracketLeft  { consume-or-expel-window-left; }
+    Super+BracketRight { consume-or-expel-window-right; }
+    Super+Comma        { consume-window-into-column; }
+    Super+Period       { expel-window-from-column; }
+
+    Super+Shift+W      { switch-preset-column-width; }
+    Super+Ctrl+Shift+W { switch-preset-column-width-back; }
+    Super+Ctrl+Shift+R { switch-preset-window-height; }
+    Super+Ctrl+R       { reset-window-height; }
+
+    Super+G       { toggle-window-floating; }
+    Super+V       { toggle-window-floating; }
+    Super+F       { maximize-column; }
+    Super+Shift+F { fullscreen-window; }
+    Super+M       { maximize-window-to-edges; }
+    Super+Ctrl+F  { expand-column-to-available-width; }
+
+    Super+Shift+C { center-column; }
+    Super+Ctrl+C  { center-visible-columns; }
+
+    Super+Minus       { set-column-width "-10%"; }
+    Super+Equal       { set-column-width "+10%"; }
+    Super+Shift+Minus { set-window-height "-10%"; }
+    Super+Shift+Equal { set-window-height "+10%"; }
+
+    Super+Shift+V { switch-focus-between-floating-and-tiling; }
+    Super+W       { toggle-column-tabbed-display; }
+
+    // =============================
+    // KEYBINDS: SCREENSHOT
+    // =============================
+    Print      { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print  { screenshot-window; }
+}

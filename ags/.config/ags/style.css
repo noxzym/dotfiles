@@ -1,0 +1,42 @@
+* {
+    color: #c5c4c6;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    font-weight: bold;
+}
+
+window.Bar {
+    background: transparent;
+}
+
+/* Background dan padding seragam untuk semua widget group */
+.modules-start > *,
+.modules-center > *,
+.modules-end > * {
+    background: #1d1d20;
+    border-radius: 12px;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 2px 8px;
+}
+
+/* Style tombol workspace */
+.workspaces button {
+    border: none;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0;
+    background: transparent;
+}
+
+.workspaces button.focused {
+    color: #ffffff;
+}
+
+/* Style container tray — satu pill container, tanpa reset */
+.tray button {
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0;
+    background: transparent;
+}
