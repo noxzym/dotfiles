@@ -173,7 +173,7 @@ binds {
     // =============================
     // KEYBINDS: FOCUS & OVERVIEW
     // =============================
-    Super+Tab       { toggle-overview; }
+    Super+Tab   { toggle-overview; }
     Super+Left  { focus-column-left; }
     Super+Down  { focus-window-down; }
     Super+Up    { focus-window-up; }
