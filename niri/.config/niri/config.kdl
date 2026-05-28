@@ -150,6 +150,7 @@ binds {
     Super+Q hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+R hotkey-overlay-title="Run an Application: rofi" { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/launcher.sh"; }
     Super+E hotkey-overlay-title="Open Files: nautilus" { spawn "nautilus"; }
+    Super+B hotkey-overlay-title="Toggle AGS Bar" { spawn "ags" "toggle" "Bar"; }
     Ctrl+Alt+Delete { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/power.sh"; }
     Super+C repeat=false { close-window; }
 
