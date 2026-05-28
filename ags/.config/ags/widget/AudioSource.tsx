@@ -1,6 +1,6 @@
 import Wp from "gi://AstalWp";
 import { execAsync } from "ags/process";
-import { createBinding } from "gnim";
+import { createState, onCleanup } from "gnim";
 import { RightClick, ScrollHandler } from "./common";
 
 const STEP = 0.05;
@@ -17,8 +17,17 @@ function icon(value: number, isMuted: boolean) {
 
 export default function AudioSource() {
 	const microphone = Wp.get_default().defaultMicrophone;
-	const volume = createBinding(microphone, "volume");
-	const label = volume.as((value) => icon(value, microphone.mute));
+	const [label, setLabel] = createState(icon(microphone.volume, microphone.mute));
+	const update = () => setLabel(icon(microphone.volume, microphone.mute));
+
+	const subscriptions = [
+		microphone.connect("notify::volume", update),
+		microphone.connect("notify::mute", update),
+	];
+
+	onCleanup(() => {
+		for (const id of subscriptions) microphone.disconnect(id);
+	});
 
 	function adjust(delta: number) {
 		microphone.volume = clamp(microphone.volume + delta);
@@ -26,6 +35,7 @@ export default function AudioSource() {
 
 	function toggleMute() {
 		microphone.mute = !microphone.mute;
+		update();
 	}
 
 	return (

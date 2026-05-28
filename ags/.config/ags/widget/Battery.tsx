@@ -17,7 +17,7 @@ function isCharging() {
 
 function format() {
 	if (!battery.isPresent || !battery.isBattery) return "";
-	return `${isCharging() ? "󱐋" : ""}${iconFor(battery.percentage)} ${Math.round(battery.percentage * 100)}%`;
+	return `${isCharging() && battery.percentage < 1 ? "󱐋" : ""}${iconFor(battery.percentage)} ${Math.round(battery.percentage * 100)}%`;
 }
 
 export default function Battery() {

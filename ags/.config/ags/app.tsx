@@ -20,6 +20,8 @@ app.start({
     main() {
         app.get_monitors().map((monitor: Gdk.Monitor) => (
             <window
+                name="Bar"
+                application={app}
                 visible
                 class="Bar"
                 gdkmonitor={monitor}

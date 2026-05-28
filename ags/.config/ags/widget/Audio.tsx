@@ -1,6 +1,6 @@
 import Wp from "gi://AstalWp";
 import { execAsync } from "ags/process";
-import { createBinding } from "gnim";
+import { createState, onCleanup } from "gnim";
 import { RightClick, ScrollHandler } from "./common";
 
 const STEP = 0.05;
@@ -18,9 +18,17 @@ function icon(value: number, isMuted: boolean) {
 
 export default function Audio() {
 	const speaker = Wp.get_default().defaultSpeaker;
-	const volume = createBinding(speaker, "volume");
-	const mute = createBinding(speaker, "mute");
-	const label = volume.as((value) => icon(value, speaker.mute));
+	const [label, setLabel] = createState(icon(speaker.volume, speaker.mute));
+	const update = () => setLabel(icon(speaker.volume, speaker.mute));
+
+	const subscriptions = [
+		speaker.connect("notify::volume", update),
+		speaker.connect("notify::mute", update),
+	];
+
+	onCleanup(() => {
+		for (const id of subscriptions) speaker.disconnect(id);
+	});
 
 	function adjust(delta: number) {
 		speaker.volume = clamp(speaker.volume + delta);
@@ -28,6 +36,7 @@ export default function Audio() {
 
 	function toggleMute() {
 		speaker.mute = !speaker.mute;
+		update();
 	}
 
 	return (
