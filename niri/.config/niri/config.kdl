@@ -10,25 +10,12 @@ input {
         xkb {
             layout "us"
         }
-
-        // Mango parity: numlock disabled.
-        // numlock
     }
 
     touchpad {
         tap
         drag true
         drag-lock
-        // Mango parity: natural scrolling disabled.
-        // natural-scroll
-    }
-
-    mouse {
-        // natural-scroll
-    }
-
-    trackpoint {
-        // natural-scroll
     }
 
     warp-mouse-to-focus
@@ -53,12 +40,7 @@ layout {
     gaps 3
     center-focused-column "never"
 
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
-    }
-
+    preset-column-widths { proportion 0.5; }
     default-column-width { proportion 0.5; }
 
     focus-ring {
@@ -75,26 +57,16 @@ layout {
         urgent-color "#9b0000"
     }
 
-    shadow {
-        // Mango parity: shadows disabled.
-        // on
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
-
     struts {}
 }
 
-// Ask clients to omit CSD if possible. Keep disabled unless CSD artifacts appear.
 prefer-no-csd
 
 // =============================
 // AUTOSTART
 // =============================
-spawn-at-startup "mako"
 spawn-sh-at-startup "~/.config/ags/app.tsx"
+spawn-at-startup "astal-notifd daemon"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "waypaper" "--restore"
 
@@ -149,7 +121,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"(?i)^adw-network$"#
+    match app-id="com.github.adw-network"
     open-floating true
     default-column-width { fixed 542; }
     default-window-height { fixed 640; }
@@ -178,7 +150,6 @@ binds {
     Super+Q hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+R hotkey-overlay-title="Run an Application: rofi" { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/launcher.sh"; }
     Super+E hotkey-overlay-title="Open Files: nautilus" { spawn "nautilus"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Ctrl+Alt+Delete { spawn "/home/noxzym/dotfiles/rofi/.config/rofi/power.sh"; }
     Super+C repeat=false { close-window; }
 
@@ -201,9 +172,7 @@ binds {
     // =============================
     // KEYBINDS: FOCUS & OVERVIEW
     // =============================
-    Super+Tab { focus-column-right-or-first; }
-    Super+Shift+Tab { focus-column-left-or-last; }
-
+    Super+Tab       { toggle-overview; }
     Super+Left  { focus-column-left; }
     Super+Down  { focus-window-down; }
     Super+Up    { focus-window-up; }
@@ -237,15 +206,6 @@ binds {
     Super+Shift+Down  { move-window-down; }
     Super+Shift+Up    { move-window-up; }
     Super+Shift+Right { move-column-right; }
-
-    Super+Ctrl+Left  { move-column-left; }
-    Super+Ctrl+Down  { move-window-down; }
-    Super+Ctrl+Up    { move-window-up; }
-    Super+Ctrl+Right { move-column-right; }
-    Super+Ctrl+H     { move-column-left; }
-    Super+Ctrl+J     { move-window-down; }
-    Super+Ctrl+K     { move-window-up; }
-    Super+Ctrl+L     { move-column-right; }
 
     Super+Ctrl+Home { move-column-to-first; }
     Super+Ctrl+End  { move-column-to-last; }
@@ -323,7 +283,6 @@ binds {
     Super+Ctrl+Shift+R { switch-preset-window-height; }
     Super+Ctrl+R       { reset-window-height; }
 
-    Super+G       { toggle-window-floating; }
     Super+V       { toggle-window-floating; }
     Super+F       { maximize-column; }
     Super+Shift+F { fullscreen-window; }

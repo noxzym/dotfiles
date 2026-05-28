@@ -1,31 +1,40 @@
-import { execAsync } from "ags/process";
-import { createPoll } from "ags/time";
+import BatteryService from "gi://AstalBattery";
+import { createState, onCleanup } from "gnim";
+
+const battery = BatteryService.get_default();
+
+function iconFor(percentage: number) {
+	if (percentage >= 0.9) return "";
+	if (percentage >= 0.65) return "";
+	if (percentage >= 0.4) return "";
+	if (percentage >= 0.15) return "";
+	return "";
+}
+
+function isCharging() {
+	return battery.charging || battery.state === BatteryService.State.CHARGING;
+}
+
+function format() {
+	if (!battery.isPresent || !battery.isBattery) return "";
+	return `${isCharging() ? "󱐋" : ""}${iconFor(battery.percentage)} ${Math.round(battery.percentage * 100)}%`;
+}
 
 export default function Battery() {
-	const battery = createPoll("", 10000, async (prev) => {
-		try {
-			const [capacity, status] = (
-				await execAsync(
-					"sh -c 'cat /sys/class/power_supply/BAT*/capacity /sys/class/power_supply/BAT*/status 2>/dev/null'",
-				)
-			).split("\n");
-			const pct = Number(capacity);
+	const [label, setLabel] = createState(format());
+	const update = () => setLabel(format());
 
-			if (!Number.isFinite(pct)) return "";
+	const subscriptions = [
+		battery.connect("notify::percentage", update),
+		battery.connect("notify::charging", update),
+		battery.connect("notify::state", update),
+		battery.connect("notify::is-present", update),
+		battery.connect("notify::is-battery", update),
+	];
 
-			let icon = "";
-			if (pct >= 80) icon = "";
-			else if (pct >= 60) icon = "";
-			else if (pct >= 40) icon = "";
-			else if (pct >= 20) icon = "";
-
-			return status === "Charging"
-				? `${icon} 󱐋 ${pct}%`
-				: `${icon}  ${pct}%`;
-		} catch {
-			return prev;
-		}
+	onCleanup(() => {
+		for (const id of subscriptions) battery.disconnect(id);
 	});
 
-	return <label label={battery} />;
+	return <label label={label} />;
 }

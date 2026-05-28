@@ -1,53 +1,41 @@
+import Wp from "gi://AstalWp";
 import { execAsync } from "ags/process";
-import { interval } from "ags/time";
-import { createState, onCleanup } from "gnim";
+import { createBinding } from "gnim";
 import { RightClick, ScrollHandler } from "./common";
 
+const STEP = 0.05;
+
+function clamp(value: number) {
+	return Math.min(1, Math.max(0, value));
+}
+
+function icon(value: number, isMuted: boolean) {
+	return isMuted || value === 0
+		? " Muted"
+		: ` ${Math.round(value * 100)}%`;
+}
+
 export default function AudioSource() {
-	const [source, setSource] = createState("󰍬 0%");
+	const microphone = Wp.get_default().defaultMicrophone;
+	const volume = createBinding(microphone, "volume");
+	const label = volume.as((value) => icon(value, microphone.mute));
 
-	function updateVolume(out: string) {
-		const volume = Math.round(
-			Number(out.match(/[0-9.]+/)?.[0] || 0) * 100,
-		);
-		setSource(out.includes("MUTED") ? `󰍭 ${volume}%` : `󰍬 ${volume}%`);
+	function adjust(delta: number) {
+		microphone.volume = clamp(microphone.volume + delta);
 	}
 
-	const timer = interval(1000, () => {
-		execAsync("wpctl get-volume @DEFAULT_AUDIO_SOURCE@")
-			.then(updateVolume)
-			.catch(() => {});
-	});
-	onCleanup(() => timer.cancel());
-
-	async function toggleMute() {
-		try {
-			await execAsync("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle");
-			const out = await execAsync("wpctl get-volume @DEFAULT_AUDIO_SOURCE@");
-			updateVolume(out);
-		} catch {
-			// ignore
-		}
-	}
-
-	async function adjust(delta: string) {
-		try {
-			await execAsync(`wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ ${delta}`);
-			const out = await execAsync("wpctl get-volume @DEFAULT_AUDIO_SOURCE@");
-			updateVolume(out);
-		} catch {
-			// ignore
-		}
+	function toggleMute() {
+		microphone.mute = !microphone.mute;
 	}
 
 	return (
 		<button onClicked={toggleMute}>
-			<RightClick onClicked={() => execAsync("pavucontrol").catch(printerr)} />
+			<RightClick onClicked={() => execAsync("pavucontrol").catch(() => { })} />
 			<ScrollHandler
-				onUp={() => adjust("5%+")}
-				onDown={() => adjust("5%-")}
+				onUp={() => adjust(STEP)}
+				onDown={() => adjust(-STEP)}
 			/>
-			<label label={source} />
+			<label label={label} />
 		</button>
 	);
 }

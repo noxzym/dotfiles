@@ -1,38 +1,28 @@
-import { execAsync } from "ags/process";
-import { interval } from "ags/time";
-import { createState, onCleanup } from "gnim";
+import Brightness from "gi://AstalBrightness";
+import { createBinding } from "gnim";
 import { ScrollHandler } from "./common";
 
+const STEP = 0.05;
+
+function clamp(value: number) {
+	return Math.min(1, Math.max(0, value));
+}
+
 export default function Backlight() {
-	const [backlight, setBacklight] = createState("󰖨 0%");
+	const screen = Brightness.get_default().screen;
+	const brightness = createBinding(screen, "brightness");
 
-	const timer = interval(2000, () => {
-		execAsync("brightnessctl info")
-			.then((out) => {
-				const pct = out.match(/\((\d+)%\)/)?.[1] || "0";
-				setBacklight(`󰖨 ${pct}%`);
-			})
-			.catch(() => { });
-	});
-	onCleanup(() => timer.cancel());
-
-	async function adjust(delta: string) {
-		try {
-			const out = await execAsync(`brightnessctl set ${delta}`);
-			const pct = out.match(/\((\d+)%\)/)?.[1] || "0";
-			setBacklight(`󰖨 ${pct}%`);
-		} catch {
-			// ignore
-		}
+	function adjust(delta: number) {
+		screen.brightness = clamp(screen.brightness + delta);
 	}
 
 	return (
-		<button>
+		<box>
 			<ScrollHandler
-				onUp={() => adjust("+5%")}
-				onDown={() => adjust("5%-")}
+				onUp={() => adjust(STEP)}
+				onDown={() => adjust(-STEP)}
 			/>
-			<label label={backlight} />
-		</button>
+			<label label={brightness.as((value) => `󰖨 ${Math.round(value * 100)}%`)} />
+		</box>
 	);
 }

@@ -11,6 +11,7 @@ import AudioSource from "./widget/AudioSource"
 import Audio from "./widget/Audio"
 import Battery from "./widget/Battery"
 import Tray from "./widget/Tray"
+import Notifications from "./widget/Notifications"
 
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
@@ -27,6 +28,7 @@ app.start({
                 marginTop={2}
                 marginLeft={4}
                 marginRight={4}
+                marginBottom={2}
             >
                 <centerbox>
                     <box $type="start" hexpand halign={Gtk.Align.START} spacing={4} class="modules-start">
@@ -45,6 +47,18 @@ app.start({
                         <Battery />
                     </box>
                 </centerbox>
+            </window>
+        ))
+        app.get_monitors().map((monitor: Gdk.Monitor) => (
+            <window
+                visible
+                class="Notifications"
+                gdkmonitor={monitor}
+                anchor={TOP | RIGHT}
+                marginTop={2}
+                marginRight={4}
+            >
+                <Notifications />
             </window>
         ))
     },

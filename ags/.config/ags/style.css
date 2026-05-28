@@ -40,3 +40,44 @@ window.Bar {
     padding: 0;
     background: transparent;
 }
+
+window.Notifications {
+    background: transparent;
+}
+
+.notifications {
+    min-width: 320px;
+}
+
+.notification {
+    background: #1d1d20;
+    border-radius: 12px;
+    padding: 10px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.notification-header {
+    margin-bottom: 2px;
+}
+
+.notification-app {
+    color: #bdbdbd;
+    font-size: 12px;
+}
+
+.notification-summary {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.notification-body {
+    color: #d8d8d8;
+}
+
+.notification-close {
+    border: none;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0 6px;
+    background: transparent;
+}
