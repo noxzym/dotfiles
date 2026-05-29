@@ -1,3 +1,4 @@
+import Pango from "gi://Pango";
 import Notifd from "gi://AstalNotifd";
 import GLib from "gi://GLib";
 import { Gtk } from "ags/gtk4";
@@ -23,13 +24,65 @@ function setWindowVisible(widget: Gtk.Widget, visible: boolean) {
 	if (!visible) widget.hide();
 }
 
+function stripMarkup(text: string) {
+	return text
+		.replace(/<a\s+[^>]*href=["'][^"']*["'][^>]*>(.*?)<\/a>/gi, "$1")
+		.replace(/<[^>]+>/g, "")
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'");
+}
+
+function truncateText(text: string, maxLength: number) {
+	return text.length > maxLength ? `${text.slice(0, maxLength).trim()}…` : text;
+}
+
+function getIconName(notification: Notifd.Notification) {
+	return notification.appIcon || notification.desktopEntry || "dialog-information-symbolic";
+}
+
+function makeIcon(notification: Notifd.Notification) {
+	const imagePath = notification.image;
+	const icon = imagePath
+		? Gtk.Image.new_from_file(imagePath)
+		: new Gtk.Image({ iconName: getIconName(notification) });
+
+	icon.pixelSize = 16;
+	icon.valign = Gtk.Align.CENTER;
+	icon.add_css_class("notification-icon");
+
+	return icon;
+}
+
+function activateNotification(notification: Notifd.Notification, onClose: () => void) {
+	const defaultAction = notification.actions.find((action) => action.id === "default");
+
+	if (!defaultAction) return;
+
+	notification.invoke(defaultAction.id);
+	onClose();
+}
+
 function makeNotification(notification: Notifd.Notification, onClose: () => void) {
 	const root = new Gtk.Box({
 		orientation: Gtk.Orientation.VERTICAL,
-		spacing: 4,
+		spacing: 8,
 	});
 
+	const click = new Gtk.GestureClick();
+	click.connect("released", () => activateNotification(notification, onClose));
+	root.add_controller(click);
+
 	root.add_css_class("notification");
+
+	const icon = makeIcon(notification);
+
+	const content = new Gtk.Box({
+		orientation: Gtk.Orientation.VERTICAL,
+		spacing: 4,
+	});
 
 	const header = new Gtk.Box({
 		orientation: Gtk.Orientation.HORIZONTAL,
@@ -43,28 +96,40 @@ function makeNotification(notification: Notifd.Notification, onClose: () => void
 	});
 
 	const close = new Gtk.Button();
+	close.add_css_class("notification-close");
 	close.set_child(new Gtk.Label({ label: "×" }));
-	close.connect("clicked", onClose);
+	close.connect("clicked", () => {
+		onClose();
+	});
 
 	const summary = new Gtk.Label({
 		label: notification.summary ?? "",
+		ellipsize: Pango.EllipsizeMode.END,
+		widthChars: 38,
+		maxWidthChars: 38,
 		xalign: 0,
 	});
 
-	const bodyText = notification.body ?? "";
+	const bodyText = truncateText(stripMarkup(notification.body ?? ""), 100);
 	const body = new Gtk.Label({
 		label: bodyText,
 		wrap: true,
+		ellipsize: Pango.EllipsizeMode.END,
+		widthChars: 38,
+		maxWidthChars: 38,
 		xalign: 0,
 		visible: bodyText.length > 0,
 	});
 
+	header.append(icon);
 	header.append(app);
 	header.append(close);
 
+	content.append(summary);
+	content.append(body);
+
 	root.append(header);
-	root.append(summary);
-	root.append(body);
+	root.append(content);
 
 	return root;
 }

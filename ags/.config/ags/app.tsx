@@ -58,7 +58,7 @@ app.start({
                 gdkmonitor={monitor}
                 anchor={TOP | RIGHT}
                 marginTop={2}
-                marginRight={4}
+                marginRight={2}
             >
                 <Notifications />
             </window>

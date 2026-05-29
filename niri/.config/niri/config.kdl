@@ -40,21 +40,11 @@ layout {
     gaps 3
     center-focused-column "never"
 
-    preset-column-widths { proportion 0.5; }
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 1.0; }
 
     focus-ring {
         width 1
-        active-color "#44444455"
-        inactive-color "#44444455"
-    }
-
-    border {
-        off
-        width 1
         active-color "#444444ff"
-        inactive-color "#444444ff"
-        urgent-color "#9b0000"
     }
 
     struts {}
@@ -69,6 +59,7 @@ spawn-sh-at-startup "~/.config/ags/app.tsx"
 spawn-at-startup "astal-notifd daemon"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "waypaper" "--restore"
+spawn-at-startup "/usr/lib/soteria-polkit/soteria"
 
 // =============================
 // SCREENSHOT
@@ -114,7 +105,7 @@ animations {
 // WINDOW RULES
 // =============================
 window-rule {
-    match app-id=r#"(?i)^(alacritty|org\.gnome\.Nautilus|nautilus|pavucontrol|waypaper)$"#
+    match app-id=r#"(?i)(alacritty|nautilus|pavucontrol|soffice|waypaper)"#
     open-floating true
     default-column-width { fixed 850; }
     default-window-height { fixed 500; }
@@ -128,7 +119,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"(?i)^Waydroid$"#
+    match app-id=r#"(?i)Waydroid"#
     open-fullscreen true
 }
 
