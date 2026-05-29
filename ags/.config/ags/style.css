@@ -9,18 +9,17 @@ window.Bar {
     background: transparent;
 }
 
-/* Background dan padding seragam untuk semua widget group */
 .modules-start > *,
 .modules-center > *,
 .modules-end > * {
     background: #1d1d20;
+    border: 0.5px solid #444444ff;
     border-radius: 12px;
     min-height: 0px;
     min-width: 0px;
     padding: 2px 8px;
 }
 
-/* Style tombol workspace */
 .workspaces button {
     border: none;
     min-height: 0px;
@@ -33,7 +32,6 @@ window.Bar {
     color: #ffffff;
 }
 
-/* Style container tray — satu pill container, tanpa reset */
 .tray button {
     min-height: 0px;
     min-width: 0px;
@@ -51,23 +49,19 @@ window.Notifications {
 
 .notification {
     background: #1d1d20;
+    border: 0.5px solid #444444ff;
     border-radius: 12px;
-    padding: 10px 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-
-.notification-header {
-    margin-bottom: 2px;
+    padding: 12px;
 }
 
 .notification-app {
     color: #bdbdbd;
-    font-size: 12px;
+    font-size: 8px;
 }
 
 .notification-summary {
     color: #ffffff;
-    font-weight: 700;
+    font-size: 16px;
 }
 
 .notification-body {
@@ -75,9 +69,14 @@ window.Notifications {
 }
 
 .notification-close {
-    border: none;
-    min-height: 0px;
-    min-width: 0px;
-    padding: 0 6px;
-    background: transparent;
+    border-radius: 6px;
+    min-height: 24px;
+    min-width: 24px;
+    padding: 0;
+    background: #2b2b31;
+    color: #d8d8d8;
+}
+
+.notification-close:hover {
+    background: #35353d;
 }
